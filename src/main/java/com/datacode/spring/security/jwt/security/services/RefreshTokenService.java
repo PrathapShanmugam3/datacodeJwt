@@ -16,7 +16,7 @@ import com.datacode.spring.security.jwt.repository.UserRepository;
 
 @Service
 public class RefreshTokenService {
-  @Value("${bezkoder.app.jwtRefreshExpirationMs}")
+  @Value("${datacode.app.jwtRefreshExpirationMs}")
   private Long refreshTokenDurationMs;
 
   @Autowired

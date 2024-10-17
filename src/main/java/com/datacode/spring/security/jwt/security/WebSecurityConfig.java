@@ -21,6 +21,9 @@ import com.datacode.spring.security.jwt.security.jwt.AuthEntryPointJwt;
 import com.datacode.spring.security.jwt.security.jwt.AuthTokenFilter;
 import com.datacode.spring.security.jwt.security.services.UserDetailsServiceImpl;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+
 @Configuration
 //@EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -89,6 +92,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
+        .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
         .anyRequest().authenticated();
     
     http.authenticationProvider(authenticationProvider());
@@ -97,4 +101,12 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     
     return http.build();
   }
+	
+	@Bean
+    public OpenAPI usersMicroserviceOpenAPI() {
+        return new OpenAPI()
+                .info(new Info().title("ERP Server API")
+                                 .description("ERP Server API")
+                                 .version("1.0.0.0"));
+    }
 }
